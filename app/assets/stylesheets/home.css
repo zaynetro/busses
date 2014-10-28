@@ -2,3 +2,40 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+body {
+  font: 100% Arial, Verdana, sans-serif;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.bus-stops {
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* Clear fix */
+.bus-stops:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.bus-stops > li {
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+
+.bus-stops > li > a {
+  color: #000;
+  text-decoration: none;
+  padding: 1rem;
+  background-color: #ddd;
+  box-sizing: border-box;
+}
+
+.bus-stops > li > a:hover {
+  background-color: #ccc;
+}

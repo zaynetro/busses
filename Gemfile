@@ -37,3 +37,6 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# Use ES6 modules
+# gem 'es6_module_transpiler-rails'
