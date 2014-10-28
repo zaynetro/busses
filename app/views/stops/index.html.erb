@@ -1,0 +1,22 @@
+<h1>All Stops</h1>
+
+<%= link_to "New stop", new_stop_path %>
+
+<% @stops.each do |stop| %>
+<p>
+  <b>Number: </b>
+  <span><%= stop.number %></span>
+</p>
+
+<p>
+  <b>Name: </b>
+  <span><%= stop.name %></span>
+</p>
+
+<p>
+<%= link_to 'Show', stop_path(stop) %>
+<%= link_to 'Delete', stop_path(stop), method: :delete %>
+</p>
+
+<hr />
+<% end %>

@@ -1,0 +1,30 @@
+<h1>Create a Stop</h1>
+<%= link_to 'Back', stops_path %>
+
+<%= form_for :stop, url: stops_path do |f| %>
+
+  <% if !@stop.nil? and @stop.errors.any? %>
+  <div id="error_explanation">
+      <h2><%= pluralize(@stop.errors.count, "error") %> prohibited this article from being saved:</h2>
+    <ul>
+    <% @stop.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <p>
+    <%= f.label :number %><br>
+    <%= f.text_field :number %>
+  </p>
+
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
