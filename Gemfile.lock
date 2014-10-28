@@ -28,7 +28,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
-    bower-rails (0.9.1)
     builder (3.2.2)
     erubis (2.7.0)
     execjs (2.2.2)
@@ -91,7 +90,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bower-rails (~> 0.9.1)
   jbuilder (~> 2.0)
   rails (= 4.1.6)
   sdoc (~> 0.4.0)

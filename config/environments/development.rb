@@ -34,4 +34,8 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # include Bower components in compiled assets
+  config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+
 end
