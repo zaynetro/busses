@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027202347) do
+ActiveRecord::Schema.define(version: 20141028133228) do
 
   create_table "stops", force: true do |t|
     t.integer  "number"
@@ -19,5 +19,15 @@ ActiveRecord::Schema.define(version: 20141027202347) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "timetables", force: true do |t|
+    t.integer  "stop_id"
+    t.datetime "time"
+    t.string   "day"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "timetables", ["stop_id"], name: "index_timetables_on_stop_id"
 
 end
