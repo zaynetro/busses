@@ -17,3 +17,6 @@
 
 # Ignore bower packages
 /vendor/assets/components
+
+# Ignore saved data in lib/assets
+/lib/assets/*.json

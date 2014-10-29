@@ -11,23 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141028133228) do
+ActiveRecord::Schema.define(version: 20141029091551) do
 
-  create_table "stops", force: true do |t|
-    t.integer  "number"
+  create_table "routes", id: false, force: true do |t|
+    t.string   "num"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "routes", ["num"], name: "index_routes_on_num", unique: true
+
+  create_table "stops", id: false, force: true do |t|
+    t.integer  "num"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "timetables", force: true do |t|
+    t.integer  "route_id"
     t.integer  "stop_id"
-    t.datetime "time"
-    t.string   "day"
+    t.string   "weekday"
+    t.time     "time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "timetables", ["route_id"], name: "index_timetables_on_route_id"
   add_index "timetables", ["stop_id"], name: "index_timetables_on_stop_id"
+  add_index "timetables", ["weekday"], name: "index_timetables_on_weekday"
 
 end

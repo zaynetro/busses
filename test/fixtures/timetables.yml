@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  route_id: 
   stop_id: 
-  time: 2014-10-28 15:32:28
-  day: MyString
+  weekday: MyString
+  time: 2014-10-29 11:10:09
 
 two:
+  route_id: 
   stop_id: 
-  time: 2014-10-28 15:32:28
-  day: MyString
+  weekday: MyString
+  time: 2014-10-29 11:10:09
