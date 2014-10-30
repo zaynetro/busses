@@ -26,51 +26,62 @@ var xhr = function (method, url, cb) {
 var sampleStops = [
   {
     created_at: "2014-10-28T08:17:26.855Z",
-    id: 1,
     name: "Ritzinkuja",
-    number: 1616,
+    num: 1616,
     updated_at: "2014-10-28T08:17:26.855Z"
   },
   {
     created_at: "2014-10-28T08:30:03.514Z",
-    id: 3,
     name: "Kesakatu",
-    number: 42,
+    num: 42,
     updated_at: "2014-10-28T08:30:03.514Z"
   }
 ];
 
 window.onload = function () {
 
-  /*var Timetable = React.createClass({ displayName : 'Timetable',
+  var Timetable = React.createClass({ displayName : 'Timetable',
+    render : function () {
+      return React.DOM.li(null, 'Item');
+    }
+  });
 
-  });*/
+  var Timetables = React.createClass({ displayName : 'Timetables',
+    render : function () {
+      return React.DOM.ul({ className : 'timetables' }, this.props.items.map(Timetable));
+    }
+  });
 
   var Stop = React.createClass({ displayName : 'Stop',
-
     propTypes : {
-      number : React.PropTypes.number.isRequired,
+      num : React.PropTypes.number.isRequired,
       name : React.PropTypes.string
     },
 
-    onClick : function (e) {
-      e.preventDefault();
-      console.log(this.props.id);
+    onChange : function (e) {
+      console.log(this.props.num);
     },
 
     render : function () {
       return (
-        React.DOM.li(null,
-          React.DOM.a({
-              href : '#' + this.props.number,
-              onClick : this.onClick,
-              key : this.props.id
-            }, this.props.number + ' - ' + this.props.name)
+        React.DOM.li({
+            className : 'bus-stop-item'
+          },
+          React.DOM.input({
+              type : 'checkbox',
+              onChange : this.onChange,
+              id : this.props.num
+            }),
+          React.DOM.label({
+              htmlFor : this.props.num
+            },
+            React.DOM.div({ className : 'bus-stop-num' }, this.props.num),
+            React.DOM.div({ className : 'bus-stop-name' }, this.props.name)
+          )
         )
       );
     }
   });
-
 
   var Stops = React.createClass({ displayName : 'Stops',
     render : function () {
@@ -85,7 +96,7 @@ window.onload = function () {
 
     onKeyUp : function (e) {
       var self = this;
-      xhr('GET', '/stops.json?number=' + e.target.value, function (err, data) {
+      xhr('GET', '/api/stops.json?num=' + e.target.value, function (err, data) {
         if(err) return console.log(err);
         self.setState({ items : JSON.parse(data) });
       });
@@ -99,14 +110,14 @@ window.onload = function () {
             onKeyUp : this.onKeyUp,
             placeholder : 'Start typing bus stop'
           }),
-          Stops({ items : this.state.items })
+          Stops({ items : this.state.items }),
+          Timetables({ items : [] })
         )
       );
     }
   });
 
   React.renderComponent(App(null), document.querySelector('#app'));
-
 };
 
 

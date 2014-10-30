@@ -12,6 +12,7 @@ class CreateRoutes < ActiveRecord::Migration
 
   def down
     drop_table :routes
+    remove_index :routes, :num
   end
 
 end

@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20141029091551) do
     t.datetime "updated_at"
   end
 
+  add_index "stops", ["num"], name: "index_stops_on_num", unique: true
+
   create_table "timetables", force: true do |t|
     t.integer  "route_id"
     t.integer  "stop_id"

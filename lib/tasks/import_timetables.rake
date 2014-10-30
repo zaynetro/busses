@@ -17,13 +17,13 @@ task :import_timetables => :environment do
     next if r.nil?
 
     s = Stop.find_by(num: timetable['stop'])
-    next if r.nil?
+    next if s.nil?
 
     timetable['times'].each { |weekday, times|
       times.each { |time|
         t = Timetable.new
-        t.route = timetable['route']
-        t.stop = timetable['stop']
+        t.route = r
+        t.stop = s
         t.weekday = weekday
         t.time = time
 

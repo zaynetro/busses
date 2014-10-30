@@ -1,0 +1,7 @@
+<h1>DB statistics</h1>
+
+<ul>
+<% @stats.each do |key, val| %>
+  <li><b><%= key %>: </b><%= val %></li>
+<% end %>
+</ul>

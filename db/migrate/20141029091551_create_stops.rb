@@ -7,10 +7,12 @@ class CreateStops < ActiveRecord::Migration
       t.timestamps
     end
     change_column :stops, :num, :integer
+    add_index :stops, :num, unique: true
   end
 
   def down
     drop_table :stops
+    remove_index :stops, :num
   end
 
 end
