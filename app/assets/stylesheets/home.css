@@ -9,6 +9,21 @@ body {
   padding: 0;
 }
 
+input, button, textarea, a {
+  outline: none;
+}
+
+.app {
+  padding: 0 1rem;
+}
+
+.search-field {
+  padding: 0.3rem 0.4rem;
+  font-size: 1.1rem;
+  border: 1px solid #eee;
+  min-width: 20rem;
+}
+
 .bus-stops {
   margin: 0;
   padding: 0;

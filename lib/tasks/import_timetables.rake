@@ -8,7 +8,8 @@ task :import_timetables => :environment do
   puts "Close file"
   timetables_file.close
 
-  count = 0
+  saved = 0
+  iterations = 0
   timetables.each { |timetable|
     # Proceed to next if times array/route/stop is empty
     next if timetable['times'].empty? || timetable['route'].empty? || timetable['stop'].empty?
@@ -32,13 +33,13 @@ task :import_timetables => :environment do
         # If not save
         t.save
 
-        count += 1
+        saved += 1
       }
     }
-
-    puts "Went through timetable object"
+    iterations += 1
+    puts "#{iterations}: Went through timetable object"
   }
 
-  puts "#{count} Timetables were saved"
+  puts "#{saved} Timetables were saved"
 
 end

@@ -1,0 +1,22 @@
+{
+  "name": "Busses",
+  "version": "0.0.1",
+  "description": "Bus timetables",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roman Zaynetdinov <romanznet@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^6.2.0",
+    "watchify": "^2.1.0"
+  },
+  "scripts": {
+    "bundle": "browserify app/assets/javascripts/home.js -o app/assets/javascripts/bundle.js",
+    "watch-js": "watchify app/assets/javascripts/home.js -o app/assets/javascripts/bundle.js",
+    "start": "npm run watch-js & rails server"
+  }
+}

@@ -20,3 +20,6 @@
 
 # Ignore saved data in lib/assets
 /lib/assets/*.json
+
+# Ignore node_modules
+/node_modules

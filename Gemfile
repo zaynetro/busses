@@ -40,3 +40,6 @@ gem 'spring',        group: :development
 
 # Use ES6 modules
 # gem 'es6_module_transpiler-rails'
+
+# For import tasks
+gem 'nokogiri'

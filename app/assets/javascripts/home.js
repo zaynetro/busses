@@ -47,8 +47,12 @@ window.onload = function () {
   });
 
   var Timetables = React.createClass({ displayName : 'Timetables',
+    getInitialState : function () {
+      return { items : this.props.selected };
+    },
+
     render : function () {
-      return React.DOM.ul({ className : 'timetables' }, this.props.items.map(Timetable));
+      return React.DOM.ul({ className : 'timetables' }, this.state.items.map(Timetable));
     }
   });
 
@@ -59,7 +63,10 @@ window.onload = function () {
     },
 
     onChange : function (e) {
-      console.log(this.props.num);
+      var index;
+      if((index = this.props.selected.indexOf(this.props.num)) !== -1) {
+        this.props.selected.splice(index, 1);
+      } else this.props.selected.push(this.props.num);
     },
 
     render : function () {
@@ -84,12 +91,29 @@ window.onload = function () {
   });
 
   var Stops = React.createClass({ displayName : 'Stops',
+    getInitialState : function () {
+      return  { selected : [] };
+    },
+
     render : function () {
-      return React.DOM.ul({ className : 'bus-stops' }, this.props.items.map(Stop));
+      var self = this;
+      return (
+        React.DOM.div(null,
+          React.DOM.ul({ className : 'bus-stops' },
+            this.props.items.map(function (stop) {
+              stop.key = stop.num;
+              stop.selected = self.state.selected;
+
+              return Stop(stop);
+            })
+          ),
+          Timetables({ selected : self.state.selected })
+        )
+      );
     }
   });
 
-  var App = React.createClass({ displayName : 'App',
+  var App = React.createFactory(React.createClass({ displayName : 'App',
     getInitialState : function () {
       return { items : sampleStops };
     },
@@ -104,20 +128,23 @@ window.onload = function () {
 
     render : function () {
       return (
-        React.DOM.div(null,
-          React.DOM.h3(null, 'Search'),
-          React.DOM.input({
-            onKeyUp : this.onKeyUp,
-            placeholder : 'Start typing bus stop'
-          }),
-          Stops({ items : this.state.items }),
-          Timetables({ items : [] })
+        React.DOM.div({ className : 'app' },
+          React.DOM.h1(null, 'Search'),
+          React.DOM.div({ className : 'search-container' },
+            React.DOM.input({
+              onKeyUp : this.onKeyUp,
+              placeholder : 'Start typing bus stop',
+              className : 'search-field',
+              autoFocus : 'true'
+            })
+          ),
+          Stops({ items : this.state.items })
         )
       );
     }
-  });
+  }));
 
-  React.renderComponent(App(null), document.querySelector('#app'));
+  React.render(<App />, document.querySelector('#app'));
 };
 
 
