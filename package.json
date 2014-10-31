@@ -6,17 +6,19 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bundle": "browserify -t reactify app/assets/javascripts/src/app.js -o app/assets/javascripts/build/app.js",
+    "watch-js": "watchify -t reactify app/assets/javascripts/src/* -o app/assets/javascripts/build/app.js",
+    "start": "npm run watch-js & rails server"
   },
   "author": "Roman Zaynetdinov <romanznet@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "browserify": "^6.2.0",
+    "react-tools": "^0.12.0",
+    "reactify": "^0.15.2",
     "watchify": "^2.1.0"
   },
-  "scripts": {
-    "bundle": "browserify app/assets/javascripts/home.js -o app/assets/javascripts/bundle.js",
-    "watch-js": "watchify app/assets/javascripts/home.js -o app/assets/javascripts/bundle.js",
-    "start": "npm run watch-js & rails server"
+  "dependencies": {
+    "react": "^0.12.0"
   }
 }

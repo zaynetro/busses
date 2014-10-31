@@ -14,9 +14,13 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+*.log
 
 # Ignore saved data in lib/assets
 /lib/assets/*.json
 
 # Ignore node_modules
 /node_modules
+
+# Ignore js builds
+/app/assets/javascripts/build/*
