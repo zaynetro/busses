@@ -11,4 +11,4 @@
 // about supported directives.
 //
 //
-//= require_tree .
+//= require build/app
