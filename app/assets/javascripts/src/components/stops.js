@@ -5,43 +5,44 @@
 var React = require('react');
 
 var Stop = require('./stop');
-var Timetables = require('./timetables');
+var Timetable = require('./timetable');
 
 module.exports = React.createClass({
   getInitialState : function () {
-    return  { selected : [] };
+    return  { selected : null };
   },
 
   handleStopSelect : function (stop_num, is_checked) {
-    var selected = this.state.selected;
-    var index;
-
-    if((index = selected.indexOf(stop_num)) === -1 && is_checked) {
-      selected.push(stop_num);
-    } else if(!is_checked) selected.splice(index, 1);
-
-    this.setState({ selected : selected });
+    var num = is_checked ? stop_num : null;
+    this.setState({ selected : num });
   },
 
   render : function () {
     var self = this;
 
-    var stops = [];
-    this.props.items.forEach(function (stop) {
+    var createStop = function (stop) {
       var key = 'stop-'+stop.num;
-      stops.push(
+      return (
         <Stop
           key={key}
           data={stop}
           onStopSelect={self.handleStopSelect}
+          checked={self.state.selected === stop.num}
+          {...stop}
         />
       );
-    }.bind(this));
+    };
+
+    var loadTimetable = function (stop_num) {
+      if(!stop_num) return;
+      var key = 'timetable-'+stop_num;
+      return (<Timetable key={key} stop={self.state.selected} />);
+    };
 
     return (
       <div>
-        <ul className='bus-stops'>{stops}</ul>
-        <Timetables stops={this.state.selected} />
+        <ul className='bus-stops'>{this.props.items.map(createStop)}</ul>
+        {loadTimetable(this.state.selected)}
       </div>
     );
   }

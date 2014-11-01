@@ -13,6 +13,12 @@ input, button, textarea, a {
   outline: none;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 .app {
   padding: 0 1rem;
 }
@@ -24,11 +30,7 @@ input, button, textarea, a {
   min-width: 20rem;
 }
 
-.bus-stops {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
+.bus-stops {}
 
 /* Clear fix */
 .bus-stops:after {
@@ -84,4 +86,14 @@ input, button, textarea, a {
 .bus-stop-name {
   color: #444;
   text-align: center;
+}
+
+.timetable-entries {}
+
+.timetable-entry {
+  padding: 0.1rem 0;
+}
+
+.timetable-entry:nth-child(2n) {
+  background-color: #eee;
 }

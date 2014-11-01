@@ -13,7 +13,7 @@ class Timetable < ActiveRecord::Base
     end
   end
 
-  def self.form_one(stop)
+  def self.form_one_old(stop)
     wday = Timetable.get_day(Time.now.wday)
     tables = Timetable.where(stop: stop, weekday: wday)
     # Group by routes
@@ -24,6 +24,14 @@ class Timetable < ActiveRecord::Base
       output.push({ route: k, times: times, weekday: wday })
     }
     output
+  end
+
+  def self.form_one(stop)
+    wday = Timetable.get_day(Time.now.wday)
+    tables = Timetable.where(stop: stop, weekday: wday).select("route_id, weekday, time").order('time')
+    tables.map { |t|
+      { route: t.route_id, weekday: t.weekday, time: t.time }
+    }
   end
 
 end
