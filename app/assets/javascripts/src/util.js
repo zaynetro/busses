@@ -22,6 +22,10 @@ module.exports = {
     };
 
     request.send();
+  },
+
+  leadingZero : function (n) {
+    return (n < 10) ? '0' + n : n;
   }
 
 }

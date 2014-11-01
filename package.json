@@ -8,7 +8,7 @@
   "scripts": {
     "bundle": "browserify -t reactify app/assets/javascripts/src/**/*.js -o app/assets/javascripts/build/app.js",
     "watch-js": "watchify -t reactify app/assets/javascripts/src/*.js -o app/assets/javascripts/build/app.js",
-    "start": "npm run watch-js & rails server"
+    "start": "npm run watch-js & bin/rails server"
   },
   "author": "Roman Zaynetdinov <romanznet@gmail.com>",
   "license": "MIT",
