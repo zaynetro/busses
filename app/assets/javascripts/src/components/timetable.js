@@ -10,7 +10,8 @@ module.exports = React.createClass({
     return  {
       items : [],
       hidden : [],
-      now : Date.now()
+      now : Date.now(),
+      showAll : false
     };
   },
 
@@ -27,16 +28,6 @@ module.exports = React.createClass({
     // Stop xhr request
   },
 
-  compareTime : function (time, now) {
-    // Doesn't work with night time
-    var d = new Date(time);
-    var d_start = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    var n = new Date(now);
-    var n_start = new Date(n.getFullYear(), n.getMonth(), n.getDate());
-
-    return (d - d_start) > (n - n_start);
-  },
-
   getTimeFromNoon : function (time) {
     var d = new Date(time);
     var d_start = new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -51,14 +42,55 @@ module.exports = React.createClass({
     return (d - d_2);
   },
 
+  routeChange : function (e) {
+    var checked = e.target.checked;
+    var route = e.target.dataset.route;
+    var hidden = this.state.hidden;
+    var index;
+
+    if(!checked) {
+      hidden.push(route);
+      this.setState({ hidden : hidden });
+    } else if((index = hidden.indexOf(route)) !== -1) {
+      hidden.splice(index, 1);
+      this.setState({ hidden : hidden });
+    }
+  },
+
+  toggleTimes : function (e) {
+    this.setState({ showAll : e.target.checked });
+  },
+
   render : function () {
 
+    var routes = [];
+    this.state.items.forEach(function (item) {
+      if(routes.indexOf(item.route) === -1) routes.push(item.route);
+    });
+
+    var createRoute = function (route) {
+      var id = 'timetable-route-' + route;
+      return (
+        <li className='timetable-route' key={id}>
+          <input
+            type='checkbox'
+            id={id}
+            onChange={this.routeChange}
+            data-route={route}
+            checked={this.state.hidden.indexOf('' + route) === -1}
+          />
+          <label htmlFor={id}>Bus #{route}</label>
+        </li>
+      );
+    }.bind(this);
+
     var filterTime = function (item) {
-      return this.compareTime(item.time, this.state.now);
+      if(this.state.showAll) return true;
+      return this.getTimeDiff(item.time, this.state.now) > 0;
     }.bind(this);
 
     var filterRoute = function (item) {
-      return this.state.hidden.indexOf(item.route) === -1;
+      return this.state.hidden.indexOf('' + item.route) === -1;
     }.bind(this);
 
     var createItem = function (item, i) {
@@ -68,7 +100,6 @@ module.exports = React.createClass({
       /*
       if(i == 0) {
         time = Math.floor((this.getTimeDiff(item.time, this.state.now)) / 1000 / 60);
-        if(time < 1) return;
         return (
           <li className='timetable-entry-huge'>
             <span>Next bus</span><span className='timetable-entry-huge-time'><small>in</small>{time}</span><span>minutes</span>
@@ -86,7 +117,17 @@ module.exports = React.createClass({
     return (
       <div className='timetable'>
         <h2 className='timetable-stop-num'>Stop: {this.props.stop}</h2>
-        <ul className='timetable-routes'></ul>
+        <div>
+          <input
+            type='checkbox'
+            onChange={this.toggleTimes}
+            checked={this.state.showAll}
+          />
+          <label>Toggle times</label>
+        </div>
+        <ul className='timetable-routes'>
+        {routes.map(createRoute)}
+        </ul>
         <ul className='timetable-entries'>
         {this.state.items.filter(filterTime).filter(filterRoute).map(createItem)}
         </ul>

@@ -88,7 +88,19 @@ ul {
   text-align: center;
 }
 
-.timetable-entries {}
+.timetable-routes {
+  margin: 0.2rem 0;
+  overflow: hidden;
+}
+
+.timetable-route {
+  float: left;
+  margin: 0.1rem 0.2rem;
+}
+
+.timetable-entries {
+  clear: both;
+}
 
 .timetable-entry {
   padding: 0.1rem 0;

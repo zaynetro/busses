@@ -30,7 +30,7 @@ class Timetable < ActiveRecord::Base
     wday = Timetable.get_day(Time.now.wday)
     tables = Timetable.where(stop: stop, weekday: wday).select("route_id, weekday, time").order('time')
     tables.map { |t|
-      { route: t.route_id, weekday: t.weekday, time: t.time }
+      { route: t.route_id, weekday: t.weekday, time: t.time.localtime }
     }
   end
 
