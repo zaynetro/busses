@@ -28,7 +28,12 @@ module.exports = React.createFactory(React.createClass({
   },
 
   onKeyUp : function (e) {
-    util.xhr('GET', '/api/stops.json?num=' + e.target.value, function (err, data) {
+    var val = e.target.value;
+    var param = 'num';
+    // If typing letters search by name
+    if('' + parseInt(val, 10) !== val && val.length) param = 'name';
+
+    util.xhr('GET', '/api/stops.json?' + param + '=' + val, function (err, data) {
       if(err) return console.log(err);
       this.setState({ items : JSON.parse(data) });
     }.bind(this));
@@ -44,7 +49,7 @@ module.exports = React.createFactory(React.createClass({
             className='search-field'
             autoFocus='true'
             onKeyUp={this.onKeyUp}
-            placeholder='Start typing bus stop'
+            placeholder='Start typing bus stop or name'
           />
         </div>
         <Stops items={this.state.items} />

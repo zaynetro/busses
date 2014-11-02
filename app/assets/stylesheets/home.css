@@ -94,6 +94,19 @@ ul {
   padding: 0.1rem 0;
 }
 
-.timetable-entry:nth-child(2n) {
+.timetable-entry:nth-child(2n+1) {
   background-color: #eee;
+}
+
+.timetable-entry-huge {
+  padding: 0.5rem 0;
+}
+
+.timetable-entry-huge-time {
+  font-size: 1.5rem;
+  margin: 0 0.4rem;
+}
+
+.timetable-entry-huge-time small {
+  padding-right: 0.2rem;
 }
