@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20141029091551) do
   add_index "routes", ["num"], name: "index_routes_on_num", unique: true
 
   create_table "stops", id: false, force: true do |t|
-    t.integer  "num"
+    t.string   "num"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

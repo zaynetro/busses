@@ -6,7 +6,7 @@ class CreateStops < ActiveRecord::Migration
 
       t.timestamps
     end
-    change_column :stops, :num, :integer
+    change_column :stops, :num, :string
     add_index :stops, :num, unique: true
   end
 
