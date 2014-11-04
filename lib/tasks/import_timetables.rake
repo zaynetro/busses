@@ -1,16 +1,17 @@
+require_relative '../assets/config'
+
 desc "Import timetables"
 task :import_timetables => :environment do
 
   puts "Open timetables file"
-  timetables_file = open(Rails.root.join('lib', 'assets', 'timetables.json'))
+  timetables_file = open(TIMETABLES_FILENAME)
   puts "Read json"
   timetables = JSON.parse(timetables_file.read)
   puts "Close file"
   timetables_file.close
 
   saved = 0
-  iterations = 0
-  timetables.each { |timetable|
+  timetables.each_with_index { |timetable, i|
     # Proceed to next if times array/route/stop is empty
     next if timetable['times'].empty? || timetable['route'].empty? || timetable['stop'].empty?
 
@@ -36,10 +37,9 @@ task :import_timetables => :environment do
         saved += 1
       }
     }
-    iterations += 1
-    puts "#{iterations}: Went through timetable object"
+    puts "#{i}: Went through valid timetable object"
   }
 
-  puts "#{saved} Timetables were saved"
+  puts "#{saved} Timetables were saved out of #{timetables.length}"
 
 end
