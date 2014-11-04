@@ -1,27 +1,23 @@
 require 'nokogiri'
 require 'open-uri'
-require 'json'
+require_relative '../assets/config'
 
 desc "Load timetables"
 task :load_timetables => :environment do
 
-  bus_routes_filename = '../data/bus_routes.json'
-  bus_routes_file = open(bus_routes_filename)
+  bus_routes_file = open(ROUTES_FILENAME)
   bus_routes = JSON.parse(bus_routes_file.read)
   bus_routes_file.close
 
-  route_stops_filename = '../data/route_stops.json'
-  route_stops_file = open(route_stops_filename)
+  route_stops_file = open(STOPS_FILENAME)
   route_stops = JSON.parse(route_stops_file.read)
   route_stops_file.close
 
   # Array of update routes (description was added)
   updated = []
   timetables = []
-  days = ['workday', 'saturday', 'holiday']
-  count = 0
-  route_stops.each { |stop|
-    count = count + 1
+  days = DAYS
+  route_stops.each_with_index { |stop, i|
     doc = Nokogiri::HTML(open(stop['url']))
 
     times = Hash.new
@@ -57,7 +53,7 @@ task :load_timetables => :environment do
 
     timetables.push({ 'stop' => stop['number'], 'route' => stop['route'], 'times' => times })
 
-    puts "Stop \##{stop['number']} parsed"
+    puts "#{i}: Stop \##{stop['number']} parsed"
 
     next if updated.include? stop['route']
 
@@ -71,17 +67,14 @@ task :load_timetables => :environment do
     bus_routes[index]['description'] = description.text
     # Mark as seen
     updated.push(stop['route'])
-
-    # break if count == 1
   }
 
-  timetables_filename = '../data/timetables.json'
-  timetables_file = open(timetables_filename, 'w')
+  timetables_file = open(TIMETABLES_FILENAME, 'w')
   timetables_file.write(timetables.to_json)
   timetables_file.close
-  puts "#{timetables.length} Timetables saved to #{timetables_filename}"
+  puts "#{timetables.length} Timetables saved to #{TIMETABLES_FILENAME}"
 
-  bus_routes_file = open(bus_routes_filename, 'w')
+  bus_routes_file = open(ROUTES_FILENAME, 'w')
   bus_routes_file.write(bus_routes.to_json)
   bus_routes_file.close
   puts "#{bus_routes.length} Bus routes saved"
