@@ -22,7 +22,7 @@ var sampleStops = [
 
 var Stops = require('./stops');
 
-module.exports = React.createFactory(React.createClass({
+module.exports = React.createClass({
   getInitialState : function () {
     return { items : sampleStops };
   },
@@ -31,7 +31,7 @@ module.exports = React.createFactory(React.createClass({
     var val = e.target.value;
     var param = 'num';
     // If typing letters search by name
-    if('' + parseInt(val, 10) !== val && val.length) param = 'name';
+    if(/[a-zöäå]{2,}/i.test(val)) param = 'name';
 
     util.xhr('GET', '/api/stops.json?' + param + '=' + val, function (err, data) {
       if(err) return console.log(err);
@@ -56,6 +56,6 @@ module.exports = React.createFactory(React.createClass({
       </div>
     );
   }
-}));
+});
 
 
