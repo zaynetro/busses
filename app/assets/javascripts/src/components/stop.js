@@ -5,13 +5,6 @@
 var React = require('react');
 
 module.exports = React.createClass({
-  propTypes : {
-    num : React.PropTypes.number.isRequired,
-    name : React.PropTypes.string,
-    checked : React.PropTypes.bool,
-    onChange : React.PropTypes.func
-  },
-
   onChange : function (e) {
     this.props.onStopSelect(this.props.num, e.target.checked);
   },
