@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(version: 20141029091551) do
   create_table "stops", id: false, force: true do |t|
     t.string   "num"
     t.string   "name"
+    t.integer  "api_id"
+    t.integer  "x"
+    t.integer  "y"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
